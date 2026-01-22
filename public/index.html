@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>XPVINZ - NO ADS PLAYER</title>
+    <style>
+        body { background: #050505; color: #fff; font-family: 'Inter', sans-serif; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
+        .card { background: #111; border: 1px solid #222; border-radius: 12px; overflow: hidden; }
+        .card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 2px solid #ff0000; }
+        .info { padding: 12px; }
+        .info h3 { font-size: 14px; margin: 0 0 10px; height: 40px; overflow: hidden; }
+        .btn { display: block; background: #ff0000; color: #fff; text-decoration: none; 
+               text-align: center; padding: 8px; border-radius: 6px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center; color:#ff0000;">XPVINZ BYPASS SYSTEM</h1>
+    <div id="content" class="grid">Memuat data dari bayangan...</div>
+
+    <script>
+        async function load() {
+            try {
+                const res = await fetch('/api/fetch');
+                const data = await res.json();
+                document.getElementById('content').innerHTML = data.map(item => `
+                    <div class="card">
+                        <img src="${item.thumbnail}" loading="lazy">
+                        <div class="info">
+                            <h3>${item.title}</h3>
+                            <a href="${item.link}" target="_blank" class="btn">PLAY VIDEO</a>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (e) {
+                document.getElementById('content').innerText = "Gagal memuat sistem.";
+            }
+        }
+        load();
+    </script>
+</body>
+</html>
